@@ -16,6 +16,7 @@ public class VerifyTitle {
 
     WebDriver driver;
     WebDriverWait wait;
+    JavascriptExecutor js;
 
     @Test
     @Parameters("browser")
@@ -30,10 +31,10 @@ public class VerifyTitle {
             driver = new ChromeDriver();
         }
 
-
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS) ;
-        wait = new WebDriverWait(driver , 10);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        wait = new WebDriverWait(driver, 10);
+
 
 
         driver.get("https://weathershopper.pythonanywhere.com/");
@@ -66,20 +67,23 @@ public class VerifyTitle {
         driver.findElement(By.id("email")).sendKeys("omertalha@gmail.com");
 
 
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-
+        js = (JavascriptExecutor) driver;
         js.executeScript("arguments[1].value = arguments[0]; ", "4242424242424242", driver.findElement(By.id("card_number")));
-
         js.executeScript("arguments[1].value = arguments[0]; ", "10/25", driver.findElement(By.id("cc-exp")));
 
         driver.findElement(By.id("cc-csc")).sendKeys("125");
-
         driver.findElement(By.id("billing-zip")).sendKeys("11111");
-        ;
         driver.findElement(By.xpath("//span[@class='iconTick']")).click();
-        Thread.sleep(5000);
+
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//h2"))));
+
+
 
         Assert.assertEquals(driver.findElement(By.xpath("//h2")).getText(), "PAYMENT SUCCESS");
+
+
+
+
         driver.quit();
 
     }

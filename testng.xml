@@ -12,14 +12,14 @@
         </classes>
     </test>
 
-<!--    <test verbose="2" preserve-order="true" name="FirefoxTest">-->
+    <test verbose="2" preserve-order="true" name="FirefoxTest">
 
-<!--        <parameter name="browser" value="firefox"></parameter>-->
+        <parameter name="browser" value="firefox"></parameter>
 
-<!--        <classes>-->
-<!--            <class name="crossBrowser.VerifyTitle">-->
-<!--            </class>-->
-<!--        </classes>-->
-<!--    </test>-->
+        <classes>
+            <class name="crossBrowser.VerifyTitle">
+            </class>
+        </classes>
+    </test>
 
 </suite>
