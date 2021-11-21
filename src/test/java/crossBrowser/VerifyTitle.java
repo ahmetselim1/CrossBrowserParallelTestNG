@@ -59,7 +59,6 @@ public class VerifyTitle {
         elements.get(0).click();
         driver.findElement(By.xpath("//button[@onclick='goToCart()']")).click();
         driver.findElement(By.xpath("//span[contains(text(),'Pay with Card')]")).click();
-//        Thread.sleep(3000);
 
         WebElement iframeElement = driver.findElement(By.xpath("//iframe[@name='stripe_checkout_app']"));
         driver.switchTo().frame(iframeElement);
@@ -82,7 +81,6 @@ public class VerifyTitle {
 
         Assert.assertEquals(driver.findElement(By.xpath("//h2")).getText(), "PAYMENT SUCCESS");
         driver.quit();
-
 
     }
 
