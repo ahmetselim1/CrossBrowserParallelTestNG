@@ -62,7 +62,7 @@ public class VerifyTitle {
 
 
         System.out.println("hi1");
-//        WebDriver iframeElement = driver.switchTo().frame(1);
+
         WebElement iframeElement = driver.findElement(By.xpath("//iframe[@name='stripe_checkout_app']"));
         driver.switchTo().frame(iframeElement);
 
