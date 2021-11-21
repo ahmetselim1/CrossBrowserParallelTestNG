@@ -61,23 +61,25 @@ public class VerifyTitle {
         driver.switchTo().frame(iframeElement);
 
         driver.findElement(By.id("email")).sendKeys("omertalha@gmail.com");
-        Thread.sleep(2000);
+        Thread.sleep(1000);
 
 
-        String cardNum= "4242424242424242";
-        WebElement inputField= driver.findElement(By.id("card_number"));
 
-        JavascriptExecutor js= (JavascriptExecutor) driver;
-        js.executeScript("arguments[1].value = arguments[0]; ", cardNum, inputField);
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[1].value = arguments[0]; ", "4242424242424242", driver.findElement(By.id("card_number")));
 
-        Thread.sleep(2000);
+        Thread.sleep(1000);
 
-        driver.findElement(By.id("cc-exp")).sendKeys("1125");
-        Thread.sleep(2000);
+
+        js.executeScript("arguments[1].value = arguments[0]; ", "10/25", driver.findElement(By.id("cc-exp")));
+
+        Thread.sleep(1000);
         driver.findElement(By.id("cc-csc")).sendKeys("125");
-        Thread.sleep(20000);
 
+        driver.findElement(By.id("billing-zip")).sendKeys("11111");
+        ;
         driver.findElement(By.xpath("//span[@class='iconTick']")).click();
+        Thread.sleep(10000);
         driver.quit();
     }
 
