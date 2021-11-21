@@ -1,9 +1,6 @@
 package crossBrowser;
 
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -60,17 +57,26 @@ public class VerifyTitle {
         driver.findElement(By.xpath("//span[contains(text(),'Pay with Card')]")).click();
         Thread.sleep(3000);
 
-
-        System.out.println("hi1");
-
         WebElement iframeElement = driver.findElement(By.xpath("//iframe[@name='stripe_checkout_app']"));
         driver.switchTo().frame(iframeElement);
 
-        System.out.println("hi2");
         driver.findElement(By.id("email")).sendKeys("omertalha@gmail.com");
-        driver.findElement(By.id("card_number")).sendKeys("4242424242424242");
-        driver.findElement(By.id("cc-exp")).sendKeys("10/25");
+        Thread.sleep(2000);
+
+
+        String cardNum= "4242424242424242";
+        WebElement inputField= driver.findElement(By.id("card_number"));
+
+        JavascriptExecutor js= (JavascriptExecutor) driver;
+        js.executeScript("arguments[1].value = arguments[0]; ", cardNum, inputField);
+
+        Thread.sleep(2000);
+
+        driver.findElement(By.id("cc-exp")).sendKeys("1125");
+        Thread.sleep(2000);
         driver.findElement(By.id("cc-csc")).sendKeys("125");
+        Thread.sleep(20000);
+
         driver.findElement(By.xpath("//span[@class='iconTick']")).click();
         driver.quit();
     }
