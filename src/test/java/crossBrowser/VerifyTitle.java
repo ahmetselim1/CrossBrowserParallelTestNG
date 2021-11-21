@@ -5,15 +5,17 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class VerifyTitle {
 
     WebDriver driver;
-
+    WebDriverWait wait;
 
     @Test
     @Parameters("browser")
@@ -30,6 +32,8 @@ public class VerifyTitle {
 
 
         driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS) ;
+        wait = new WebDriverWait(driver , 10);
 
 
         driver.get("https://weathershopper.pythonanywhere.com/");
@@ -55,32 +59,31 @@ public class VerifyTitle {
         elements.get(0).click();
         driver.findElement(By.xpath("//button[@onclick='goToCart()']")).click();
         driver.findElement(By.xpath("//span[contains(text(),'Pay with Card')]")).click();
-        Thread.sleep(3000);
+//        Thread.sleep(3000);
 
         WebElement iframeElement = driver.findElement(By.xpath("//iframe[@name='stripe_checkout_app']"));
         driver.switchTo().frame(iframeElement);
 
         driver.findElement(By.id("email")).sendKeys("omertalha@gmail.com");
-        Thread.sleep(1000);
-
 
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
+
         js.executeScript("arguments[1].value = arguments[0]; ", "4242424242424242", driver.findElement(By.id("card_number")));
-
-        Thread.sleep(1000);
-
 
         js.executeScript("arguments[1].value = arguments[0]; ", "10/25", driver.findElement(By.id("cc-exp")));
 
-        Thread.sleep(1000);
         driver.findElement(By.id("cc-csc")).sendKeys("125");
 
         driver.findElement(By.id("billing-zip")).sendKeys("11111");
         ;
         driver.findElement(By.xpath("//span[@class='iconTick']")).click();
-        Thread.sleep(10000);
+        Thread.sleep(5000);
+
+        Assert.assertEquals(driver.findElement(By.xpath("//h2")).getText(), "PAYMENT SUCCESS");
         driver.quit();
+
+
     }
 
 
